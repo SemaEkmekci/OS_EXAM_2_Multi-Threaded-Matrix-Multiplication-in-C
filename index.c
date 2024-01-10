@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>  // Include string.h for strtok
+#include <string.h> 
 
 #define MAX_BOYUT 7
 
@@ -25,7 +25,7 @@ int dosyaOku() {
     while (fgets(line, 50, fileA)) {
        printf("Satır: %s", line);
 
-        char *cell = strtok(line, " ");  // Use cell for string token
+        char *cell = strtok(line, " ");  
         while (cell != NULL) {
             printf("\nhücre: %s\n", cell);
             matrixA[j][i] = atoi(cell);
@@ -35,7 +35,7 @@ int dosyaOku() {
         }
 
         i++;
-        j = 0;  // Reset column index for the next row
+        j = 0; 
     }
     return 0;
 }
