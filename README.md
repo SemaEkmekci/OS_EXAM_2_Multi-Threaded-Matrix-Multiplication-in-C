@@ -32,7 +32,7 @@ Programı derlemek ve çalıştırmak için aşağıdaki komutları kullanın:
 ```bash
 gcc -o my_program index.c -pthread
 ./my_program
-
+```
 
 
 
@@ -69,3 +69,4 @@ Instructions for running the program:
 ```bash
 gcc -o my_program index.c -pthread
 ./my_program
+```
