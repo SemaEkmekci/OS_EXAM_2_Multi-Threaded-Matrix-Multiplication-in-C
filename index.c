@@ -8,6 +8,8 @@ int matrixA[MAX_BOYUT][MAX_BOYUT];
 int matrixB[MAX_BOYUT][MAX_BOYUT];
 int matrixS[MAX_BOYUT][MAX_BOYUT];
 
+int gercekBoyut;
+
 int dosyaOku() {
     FILE *fileA = fopen("inputA.txt", "r");
     FILE *fileB = fopen("inputB.txt", "r");
@@ -34,15 +36,34 @@ int dosyaOku() {
             j++;
         }
 
+        
         i++;
+        if(i>MAX_BOYUT){
+            printf("Matris boyutu 7 den büyük olamaz.");
+            return -1;
+        }
         j = 0; 
     }
+    
+    gercekBoyut = i;
     return 0;
 }
 
 
+void matrisiEkranaYaz(){
+    int i, j;
+    for (i = 0; i < gercekBoyut ; i++){
+        for (j = 0; j < gercekBoyut; j++){
+            printf("%d ", matrixA[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+
 
 int main() {
     dosyaOku();
+    matrisiEkranaYaz();
     return 0;
 }
