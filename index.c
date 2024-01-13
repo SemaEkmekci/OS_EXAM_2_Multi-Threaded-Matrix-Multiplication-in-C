@@ -153,20 +153,20 @@ int writeToMatricesScreen(){    // Okunan A ve B matrislerini ekrana yazdırma f
 
 
 
-int createThread(pthread_t threads[MAX_BOYUT][MAX_BOYUT], struct Info params[MAX_BOYUT][MAX_BOYUT]) {
+int createThread(pthread_t threads[MAX_BOYUT][MAX_BOYUT], struct Info params[MAX_BOYUT][MAX_BOYUT]) {   // Thread oluşturduğum fonksiyon
     for(int i = 0; i < gercekBoyutA; i++){  
         for(int j = 0; j < gercekBoyutB; j++){
+            // Çarpım işlemi yapacağım satır  ve sütundaki değerleri diziye atıyorum.
             params[i][j].row = i;
             params[i][j].col = j;
-            pthread_create(&threads[i][j], NULL, matrixMultiplication, (void *)&params[i][j]);
-            pthread_join(threads[i][j], NULL);
-        }
-        
+            pthread_create(&threads[i][j], NULL, matrixMultiplication, (void *)&params[i][j]);   // // Her bir matris hücresi için bir thread oluşturdum ve matrixMultiplication fonksiyonunu çağırarak çarpım işlemini gerçekleştirdim.
+            pthread_join(threads[i][j], NULL); // Çarpım işleminin doğru çalışması için oluşturduğum threadlerin tamamlanması bekliyorum. Yoksa sonuç yanlış çıkıyor.
+        }  
     }
     return 0;
 }
 
-/*int waitThread(pthread_t threads[MAX_BOYUT][MAX_BOYUT], struct Info params[MAX_BOYUT][MAX_BOYUT]) {
+/*int waitThread(pthread_t threads[MAX_BOYUT][MAX_BOYUT], struct Info params[MAX_BOYUT][MAX_BOYUT]) {  // Bu fonksiyonu çalıştırırsam istediğim çıktıyı vermiyor.
     for(int i = 0; i < gercekBoyutA; i++){
         for(int j = 0; j < gercekBoyutB; j++){
             pthread_join(threads[i][j], NULL);
@@ -177,7 +177,7 @@ int createThread(pthread_t threads[MAX_BOYUT][MAX_BOYUT], struct Info params[MAX
 }*/
 
 
-int writeResultScreen(){
+int writeResultScreen(){     // Matris sonucunu ekrana bastırıyorum.
     printf("\nÇARPIM SONUCU \n Sonuç Matrisi\n");
     for(int i = 0; i < gercekBoyutA; i++){
         for(int j = 0; j < gercekBoyutB ; j++){
@@ -192,17 +192,17 @@ int writeResultScreen(){
 
 int main() {
     
-    pthread_t threads[MAX_BOYUT][MAX_BOYUT];
-    struct Info params[MAX_BOYUT][MAX_BOYUT];
- 
+    pthread_t threads[MAX_BOYUT][MAX_BOYUT];  // Veri tipi pthread_t olan bir dizi tanımlıyorum. Bu dizide threadlerimi tutacağım.
+    struct Info params[MAX_BOYUT][MAX_BOYUT];  // Veri tipi Info olan params adında bir dizi tanımlıyorum. Bu dizi satır ve sütun bilgisi tutacak.
+
     readMatrixA("inputA.txt");  // A matrisini oku
     readMatrixB("inputB.txt");  // B matrisini oku
     
     writeToMatricesScreen();  // A ve B matrislerini ekrana yaz.
     
-    createThread(threads,params);
+    createThread(threads,params);  // Thread oluşturduğum fonksiyon
     //waitThread(threads,params);
-    writeResultScreen();
-
+    writeResultScreen();   // Sonuç Matrisini ekrana yazdırıyorum.
+    
     return 0;
 }
